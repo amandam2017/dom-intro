@@ -52,15 +52,3 @@ var smsTotal = 0;
 // * add nothing for invalid values that is not 'call' or 'sms'.
 // * display the latest total on the screen
 //addToBillBtnElement.addEventListener("click", addToBillBtnClicked);
-
-
-function textBillTotalColor(){
-
-    //logic
-
-
-   //color the total based on the criteria
-   
-   
-
-}
