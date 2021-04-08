@@ -8,7 +8,6 @@ const callCostSettingField = document.querySelector('.callCostSetting');
 const smsCostSettingField = document.querySelector('.smsCostSetting');
 const warningLevelSettingField = document.querySelector('.warningLevelSetting');
 const criticalLevelSettingField = document.querySelector('.criticalLevelSetting');
-//const criticalLevelSettingField = document.querySelector('.criticalLevelSetting');
 
 //get a reference to the add button
 const billSettingsAddButtonBtn = document.querySelector('.billSettingsAddButton');
@@ -16,7 +15,7 @@ const billSettingsAddButtonBtn = document.querySelector('.billSettingsAddButton'
 //get a reference to the 'Update settings' button
 const updateSettingsbtnElem = document.querySelector('.updateSettingsbtn');
 
-// create a variables that will keep track of all the settings
+// create a variables that will keep track of all the settings values
 var callSettings = 0;
 var smsSettings = 0; 
 var warningSettings = 0;
@@ -27,12 +26,23 @@ var callsTotalSettings = 0;
 var smsTotalSettings = 0;
 var totalSettings = 0;
 
+
+var overallCost = 0;
+//adding variable to the limitedTotal on criticalLevel
+var overallCostUpdated = 0;
+
 //add an event listener for when the 'Update settings' button is pressed
     function updateSettings(){
     callSettings = callCostSettingField.value;
     smsSettings = smsCostSettingField.value;
     warningSettings = warningLevelSettingField.value;
     dangerSettings = criticalLevelSettingField.value;
+
+    addClassName();
+
+
+    //addClassName();
+    //removeClassName();
     // console.log(callSettings);
     // console.log(smsSettings);
 };
@@ -45,22 +55,23 @@ updateSettingsbtnElem.addEventListener('click', updateSettings);
 
 function totalBillSettings(){
     var checkedRadioSettingsBtn = document.querySelector("input[name='billSettingsItemType']:checked");
-    if(checkedRadioSettingsBtn){
-        var billSettingsItemType = checkedRadioSettingsBtn.value;
-        //ADD the appropriate value to the call / sms total
-        //AND use parseFloat to change string value to a number
-        if(billSettingsItemType === "call"){
-            callsTotalSettings +=  parseFloat(callSettings);
-        }
-        if(billSettingsItemType === "sms"){
-            smsTotalSettings += parseFloat(smsSettings);
-        }
+    if(overallCost < dangerSettings){
+        if(checkedRadioSettingsBtn){
 
-        // if(callSettings == '' || smsSettings == ''){
-        //     return 0.00;
-        // }
+            var billSettingsItemType = checkedRadioSettingsBtn.value;
+            //ADD the appropriate value to the call / sms total
+            //AND use parseFloat to change string value to a number
+            if(billSettingsItemType === "call"){
+                callsTotalSettings +=  parseFloat(callSettings);
+            }
+            if(billSettingsItemType === "sms"){
+                smsTotalSettings += parseFloat(smsSettings);
+            }
+    
+        }
+    
     }
-
+   
 
 // * add the appropriate value to the overall total
 
@@ -68,19 +79,44 @@ function totalBillSettings(){
 
     callSettingsTotalElem.innerHTML = callsTotalSettings.toFixed(2);
     smsSettingsTotalElem.innerHTML = smsTotalSettings.toFixed(2);
-    var overallCost = callsTotalSettings + smsTotalSettings;
+     overallCost = callsTotalSettings + smsTotalSettings;
     totalSettingsElem.innerHTML = overallCost.toFixed(2);
 
-    // adding the criticalLevelSetting class will make the overall cost red
-    if (overallCost >= 50){
-        totalSettingsElem.classList.add("danger");
+addClassName();
+
+    //stopping the counter once the criticalLevel is reached
+    // for(i = 0; i > criticalLevelSettingField; i++){
+    //     if(overallCost > criticalLevelSettingField){
+    //         document.getElementsByClassName('billSettingsAddButton').innerHTML.disabled = true;
+    //         //limitedTotal += overallCost;
+    //     }
+
+        //if(overallCost<criticalLevelSettingField){continue;}
+        //limitedTotal += overallCost;
     }
 
-    else if (overallCost >= 30){
-        // adding the warningLevelSetting class will make the overall cost orange
-        totalSettingsElem.classList.add("warning");
+    function addClassName(){
+
+
+        
+        // updating the criticalLevelSetting class will make the overall cost orange
+        if (overallCost >= dangerSettings){
+            totalSettingsElem.classList.remove("warning");
+            totalSettingsElem.classList.add("danger");
+        }
+    
+        else if (overallCost >= warningSettings && overallCost< dangerSettings){
+            // adding the warningLevelSetting class will make the overall cost orange
+            totalSettingsElem.classList.remove("danger");
+            totalSettingsElem.classList.add("warning");
+        }
+        else {
+            totalSettingsElem.classList.remove("warning");
+            totalSettingsElem.classList.remove("danger");
+        }
     }
-}
+
+
 
 billSettingsAddButtonBtn.addEventListener('click', totalBillSettings);
 

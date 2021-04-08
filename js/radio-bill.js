@@ -20,10 +20,10 @@ function radioBillTotal(){
     var billItemType = checkedRadioBtn.value
     // billItemType will be 'call' or 'sms'
     if(billItemType === "call"){
-        call += 2.75
+        call += 2.75;
     }
     if(billItemType === "sms"){
-        sms += 0.75
+        sms += 0.75;
     }
 
     callTotalTwoElem.innerHTML = call.toFixed(2);
@@ -43,7 +43,7 @@ else if (totalCost >= 30){
 }
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
-radioBillAddBtnElement.addEventListener('click', radioBillTotal)
+radioBillAddBtnElement.addEventListener('click', radioBillTotal);
 
 // * add the appropriate value to the running total
 // * add nothing for invalid values that is not 'call' or 'sms'.

@@ -19,7 +19,7 @@ var smsTotal = 0;
         var billTypeEntered = billTypeTextElement.value.trim();
         // update the correct total
         if (billTypeEntered === "call"){
-            callsTotal += 2.75
+            callsTotal += 2.75;
         }
         else if (billTypeEntered === "sms"){
             smsTotal += 0.75;
