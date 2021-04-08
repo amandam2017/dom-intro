@@ -68,3 +68,7 @@ document.addEventListener("DOMContentLoaded", function(billString){
 //  * once done looping over all the entries - display the total onto the screen in the billTotal element
 
 //link the function to a click event on the calculate button
+
+
+
+
