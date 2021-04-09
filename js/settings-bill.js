@@ -61,27 +61,35 @@ function totalBillSettings(){
             var billSettingsItemType = checkedRadioSettingsBtn.value;
             //ADD the appropriate value to the call / sms total
             //AND use parseFloat to change string value to a number
-            if(billSettingsItemType === "call"){
-                callsTotalSettings +=  parseFloat(callSettings);
-            }
-            if(billSettingsItemType === "sms"){
-                smsTotalSettings += parseFloat(smsSettings);
+            if(callSettings === ''){
+                document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
             }
 
-            if(billSettingsItemType === call &&  callSettings === ''){
-                callsTotalSettings+=0;
+            if(smsSettings === ''){
+                document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
             }
 
-            
-            // callCostSettingField.value = value || 0;
-            // smsCostSettingField.value = value || 0;
+            else if(billSettingsItemType === "call"){
+                callsTotalSettings +=  Number(callSettings);
+            }
+            else if(billSettingsItemType === "sms"){
+                smsTotalSettings += Number(smsSettings);
+            }
 
 
-            
+            // if(billSettingsItemType === call &&  callSettings === ''){
+            //     callsTotalSettings+=0;
+            // }
+
+            // if(billSettingsItemType === sms &&  smsSettings === ''){
+            //     smsTotalSettings+=0;
+            // }            
     
         }
     
     }
+
+    
    
 
 // * add the appropriate value to the overall total
