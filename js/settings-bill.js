@@ -67,6 +67,17 @@ function totalBillSettings(){
             if(billSettingsItemType === "sms"){
                 smsTotalSettings += parseFloat(smsSettings);
             }
+
+            if(billSettingsItemType === call &&  callSettings === ''){
+                callsTotalSettings+=0;
+            }
+
+            
+            // callCostSettingField.value = value || 0;
+            // smsCostSettingField.value = value || 0;
+
+
+            
     
         }
     
@@ -95,10 +106,9 @@ addClassName();
         //limitedTotal += overallCost;
     }
 
-    function addClassName(){
+    //color function
 
-
-        
+    function addClassName(){   
         // updating the criticalLevelSetting class will make the overall cost orange
         if (overallCost >= dangerSettings){
             totalSettingsElem.classList.remove("warning");
