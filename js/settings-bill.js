@@ -70,10 +70,10 @@ function totalBillSettings(){
             }
 
             else if(billSettingsItemType === "call"){
-                callsTotalSettings +=  Number(callSettings);
+                callsTotalSettings +=  parseFloat(callSettings);
             }
             else if(billSettingsItemType === "sms"){
-                smsTotalSettings += Number(smsSettings);
+                smsTotalSettings += parseFlNumberoat(smsSettings);
             }
 
 
