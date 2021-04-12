@@ -39,6 +39,15 @@ var overallCostUpdated = 0;
     warningSettings = warningLevelSettingField.value;
     dangerSettings = criticalLevelSettingField.value;
 
+    if(warningSettings === ''){
+        document.getElementsByClassName('updateSettingsbtnElem').disabled = true;
+        
+    }
+
+    if(dangerSettings === ''){
+        document.getElementsByClassName('updateSettingsbtnElem').disabled = true;
+    }
+
     addClassName();
 
 };
@@ -65,6 +74,7 @@ function totalBillSettings(){
             if(smsSettings === ''){
                 document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
             }
+
 
             else if(billSettingsItemType === "call"){
                 callsTotalSettings +=  parseFloat(callSettings);
@@ -117,18 +127,21 @@ addClassName();
     function addClassName(){   
         
         // updating the criticalLevelSetting class will make the overall cost orange
-
-        if (overallCost > dangerSettings){
+        if (overallCost >= dangerSettings){
             totalSettingsSpanElem.classList.remove("warning");
             totalSettingsSpanElem.classList.add("danger");
         }
+
+        // if (overallCost < dangerSettings){
+        //     totalSettingsSpanElem.classList.remove("warning");
+        //     //totalSettingsSpanElem.classList.add("danger");
+        // }
     
         else if (overallCost >= warningSettings && overallCost < dangerSettings){
             // adding the warningLevelSetting class will make the overall cost orange
             totalSettingsSpanElem.classList.remove("danger");
             totalSettingsSpanElem.classList.add("warning");
         }
-
         else {
             totalSettingsSpanElem.classList.remove("warning");
             totalSettingsSpanElem.classList.remove("danger");
