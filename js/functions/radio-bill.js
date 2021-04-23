@@ -7,43 +7,37 @@ const totalTwoElem = document.querySelector('.totalTwo');
 //get a reference to the add button
 const radioBillAddBtnElement = document.querySelector('.radioBillAddBtn');
 
-//create a variable that will keep track of the total bill
-var call = 0;
-var sms = 0;
+//an instance for my function
+var radioBill = radioBillTotal();
 
-//add an event listener for when the add button is pressed
-
-//adding a value when radio is checked
-function radioBillTotal(){
+function radioBillTotal2(){
     var checkedRadioBtn = document.querySelector("input[name='billItemType']:checked");
     if (checkedRadioBtn){
-    var billItemType = checkedRadioBtn.value
+    var billItemType = checkedRadioBtn.value;
+    // console.log(billItemType);
     // billItemType will be 'call' or 'sms'
-    if(billItemType === "call"){
-        call += 2.75;
-    }
-    if(billItemType === "sms"){
-        sms += 0.75;
+    // alert("hello");
+
+    //passing the values
+    radioBill.checkedBillType(billItemTypeRadio.value);
     }
 
-    callTotalTwoElem.innerHTML = call.toFixed(2);
-    smsTotalTwoElem.innerHTML = sms.toFixed(2);
-    var totalCost = call + sms;
-    totalTwoElem.innerHTML = totalCost.toFixed(2);
-}
 
-if (totalCost >= 50){
-    // adding the danger class will make the text red
-    totalTwoElem.classList.add("danger");
-}
-else if (totalCost >= 30){
-    totalTwoElem.classList.add("warning");
-}
+    //adding and removing the colors
+
+    totalTwoElem.classList.remove("danger");
+    totalTwoElem.classList.remove("warning");
+
+    totalTwoElem.classList.add(radioBill.addClass());
+
+    callTotalTwoElem.innerHTML = radioBill.getCallCostTotal().toFixed(2);
+    smsTotalTwoElem.innerHTML = radioBill.getSmsCostTotal().toFixed(2);
+    totalTwoElem.innerHTML = radioBill.getOverallCost().toFixed(2);
 
 }
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
-radioBillAddBtnElement.addEventListener('click', radioBillTotal);
+radioBillAddBtnElement.addEventListener('click', radioBillTotal2);
 
 // * add the appropriate value to the running total
 // * add nothing for invalid values that is not 'call' or 'sms'.

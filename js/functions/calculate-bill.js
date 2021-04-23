@@ -12,47 +12,40 @@ const billTotalSpanElement = document.querySelector(".total");
 
 //create the function that will be called when the calculate button is pressed
 //-add event listener to the button- use button element //
+
+//instantiate my factory function
+var calculatedBill = totalPhoneBill();
+
 document.addEventListener("DOMContentLoaded", function(billString){
     function totalPhoneBill(billString){
-        var billItems = billString.split(",");
-    // a variable for the total phone bill.
-    var billTotal = 0;
-    //loop over all the bill items
-    for (var i=0;i<billItems.length;i++){
-        var billItem = billItems[i].trim();
-        if (billItem === "call"){
-            billTotal += 2.75;
-        }
-        else if (billItem === "sms"){
-            billTotal += 0.75;
-        }
-    }
+       
     
     //round to two decimals
-    var roundedBillTotal = billTotal.toFixed(2);
-    return roundedBillTotal;
+    // var roundedBillTotal = billTotal.toFixed(2);
+    // return roundedBillTotal;
     }
+    
 
 
     function calculateBtnClicked(){
         // logic goes here
+         //pass the value that is being entered
+         calculatedBill.billItemType(billStringField.value);
 
-        var billString = billStringField.value;
-        const roundedBillTotal = totalPhoneBill(billString);
+         billTotalSpanElement.innerHTML = calculatedBill.billItemType(billStringField.value).toFixed(2);
 
-        const currentTotal = Number(roundedBillTotal);
+        //  console.log(calculatedBill.getbillTotal());
+         
+        // var billString = billStringField.value;
+        // var roundedBillTotal = totalPhoneBill(billString);
+
+
         billTotalSpanElement.classList.remove("danger");
-        billTotalSpanElement.classList.remove("warning");
-        if(currentTotal >= 30){
-            //make the total red
-            billTotalSpanElement.classList.add("danger");
+        billTotalSpanElement.classList.remove("warning")
 
-        }else if(currentTotal >= 20 && currentTotal < 30){
-            //make the total orange
-            billTotalSpanElement.classList.add("warning");
-        }
+        billTotalSpanElement.classList.add(calculatedBill.addClass());
 
-        billTotalElement.innerHTML = roundedBillTotal;
+        billTotalElement.innerHTML = calculatedBill.getbillTotal().toFixed(2);
     }
     
 

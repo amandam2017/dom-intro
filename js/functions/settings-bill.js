@@ -57,31 +57,41 @@ function totalBillSettings(){
             var billSettingsItemType = checkedRadioSettingsBtn.value;
             //ADD the appropriate value to the call / sms total
             //AND use parseFloat to change string value to a number
-            if(callSettings === ''){
-                document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
+            // if(callSettings === ''){
+            //     document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
                 
-            }
-
-            if(smsSettings === ''){
-                document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
-            }
-
-            else if(billSettingsItemType === "call"){
-                callsTotalSettings +=  parseFloat(callSettings);
-            }
-            else if(billSettingsItemType === "sms"){
-                smsTotalSettings += parseFloat(smsSettings);
-            }
-
-
-
-            // if(billSettingsItemType === call &&  callSettings === ''){
-            //     callsTotalSettings+=0;
             // }
 
-            // if(billSettingsItemType === sms &&  smsSettings === ''){
-            //     smsTotalSettings+=0;
-            // }            
+            // if(callSettings === ''){
+            //     document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
+                
+            // }
+
+            // if(smsSettings === ''){
+            //     document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
+            // }
+
+            // if(u-full-width === ''){
+            //     document.getElementsByClassName('updateSettingsbtnElem').disabled = true;
+                
+            // }
+
+            if(billSettingsItemType === "call"){
+                callsTotalSettings +=  Number(callSettings);
+            }
+            else if(billSettingsItemType === "sms"){
+                smsTotalSettings += Number(smsSettings);
+            }
+
+
+
+            if(billSettingsItemType === "call" &&  callSettings === ''){
+                callsTotalSettings+=0;
+            }
+
+            if(billSettingsItemType === "sms" &&  smsSettings === ''){
+                smsTotalSettings+=0;
+            }            
     
         }
     
@@ -118,7 +128,7 @@ addClassName();
         
         // updating the criticalLevelSetting class will make the overall cost orange
 
-        if (overallCost > dangerSettings){
+        if (overallCost >= dangerSettings && dangerSettings > 0){
             totalSettingsSpanElem.classList.remove("warning");
             totalSettingsSpanElem.classList.add("danger");
         }
