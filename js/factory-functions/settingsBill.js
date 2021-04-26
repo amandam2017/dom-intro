@@ -9,39 +9,46 @@ function BillWithSettings(){
     var smsCostTotal = 0;
     //var theCriticalTotal = 0 
 
-    function setCallCost(callCost){
-         theCallCost = callCost;
-    }
+    //SETTING AND GETTING THE VALUES--function
 
-    function getCallCost(callCost){
-        return theCallCost;
-   }
+    // function setTheBill(){
+        function setCallCost(callCost){
+            theCallCost = callCost;
+       }
+   
+       function getCallCost(){
+           return theCallCost;
+      }
+   
+      function setSmsCost(smsCost){
+           theSmsCost = smsCost;
+       }
+   
+       function getSmsCost(){
+           return theSmsCost;
+       }
+   //set warningLevel function
+       function setWarningLevel(warningLevel){
+           theWarningLevel = warningLevel;
+       }
+   
+       function getWarningLevel(){
+           return theWarningLevel;
+       }
+   
+   
+       //set warningLevel function
+       function setCriticalLevel(criticalLevel){
+           theCriticalLevel = criticalLevel;
+       }
+   
+       function getCriticalLevel(){
+           return theCriticalLevel;
+       }
+    // }
 
-   function setSmsCost(smsCost){
-        theSmsCost = smsCost;
-    }
 
-    function getSmsCost(smsCost){
-        return theSmsCost;
-    }
-//set warningLevel function
-    function setWarningLevel(warningLevel){
-        theWarningLevel = warningLevel;
-    }
-
-    function getWarningLevel(warningLevel){
-        return theWarningLevel;
-    }
-
-
-    //set warningLevel function
-    function setCriticalLevel(criticalLevel){
-        theCriticalLevel = criticalLevel;
-    }
-
-    function getCriticalLevel(criticalLevel){
-        return theCriticalLevel;
-    }
+    // USING THE VALUES NOW
 
     function makeCall(){
         //when sending sms if I have not reached the criticalLevel...increament the call cost 
@@ -49,6 +56,7 @@ function BillWithSettings(){
             callCostTotal += theCallCost;
         }
     }
+    
     function getTotalCost(){
         return callCostTotal + smsCostTotal;
     }
@@ -70,13 +78,13 @@ function BillWithSettings(){
     }
     //this function below checks if the total cost is great or equal the criticalLevel
     function hasReachedCriticalLevel(){
-        return getTotalCost() >= getCriticalLevel()
+        return getTotalCost() >= getCriticalLevel();
     }
 
     function totalClassName(){
 
         if(hasReachedCriticalLevel()){
-            return "critical";
+            return "danger";
         };
 
         if(getTotalCost() >= getWarningLevel()){
@@ -85,8 +93,35 @@ function BillWithSettings(){
     
     }
 
+    function billItems(){
+    var checkedRadioSettingsBtn = document.querySelector("input[name='billSettingsItemType']:checked");
+        
+        if(checkedRadioSettingsBtn){
+            var billSettingsItemType = checkedRadioSettingsBtn.value;
+
+            if(billSettingsItemType === "call"){
+                return makeCall();
+            }
+            
+        else if(billSettingsItemType === "sms"){
+            return sendSms();
+        }
+        
+    }
+
+
+        // if(billSettingsItemType === "call" &&  callSettings === ''){
+        //     checkedRadioSettingsBtn+=0;
+        // }
+
+        // if(billSettingsItemType === "sms" &&  smsSettings === ''){
+        //     smsTotalSettings+=0;
+        // } 
+    }
+
 //expose functions into factory function
     return {
+        billItems,
         setCallCost,
         getCallCost,
         setSmsCost,

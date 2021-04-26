@@ -7,52 +7,33 @@ const billTotalElement = document.querySelector(".billTotal");
 //get a reference to the billString
 const billStringField = document.querySelector(".billString");
 
-//get a reference for the bill total element
-const billTotalSpanElement = document.querySelector(".total");
+//get a reference for the bill total
+// const billTotalSpanElement = document.querySelector(".total");
 
-//create the function that will be called when the calculate button is pressed
-//-add event listener to the button- use button element //
+//an instance for my function
+var calculatedBill = calculatedStrings();
 
-//instantiate my factory function
-var calculatedBill = totalPhoneBill();
+function calculateBtnClicked() {
 
-document.addEventListener("DOMContentLoaded", function(billString){
-    function totalPhoneBill(billString){
-       
+    //pass the value from html
+
+    billTotalElement.classList.remove("danger");
+    billTotalElement.classList.remove("warning");
+
+
+    billTotalElement.classList.add(calculatedBill.addColor(billStringField.value));
     
-    //round to two decimals
-    // var roundedBillTotal = billTotal.toFixed(2);
-    // return roundedBillTotal;
-    }
-    
+    billTotalElement.innerHTML =  calculatedBill.totalPhoneBill(billStringField.value);
+
+}
 
 
-    function calculateBtnClicked(){
-        // logic goes here
-         //pass the value that is being entered
-         calculatedBill.billItemType(billStringField.value);
 
-         billTotalSpanElement.innerHTML = calculatedBill.billItemType(billStringField.value).toFixed(2);
-
-        //  console.log(calculatedBill.getbillTotal());
-         
-        // var billString = billStringField.value;
-        // var roundedBillTotal = totalPhoneBill(billString);
+calculateBtnElement.addEventListener("click", calculateBtnClicked);
 
 
-        billTotalSpanElement.classList.remove("danger");
-        billTotalSpanElement.classList.remove("warning")
 
-        billTotalSpanElement.classList.add(calculatedBill.addClass());
 
-        billTotalElement.innerHTML = calculatedBill.getbillTotal().toFixed(2);
-    }
-    
-
-    calculateBtnElement.addEventListener("click", calculateBtnClicked) 
-
-    
-})
 //calculateBtn.addEventListener("click", calculateBtnClicked)
 
 //  * this function should read the string value entered - split it on a comma.

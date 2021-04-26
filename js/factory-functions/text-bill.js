@@ -16,11 +16,12 @@ function textBillTotal(){
 
     function getTotalCost(){
         return callsTotal + smsTotal;
-
     }
+
     function getCallCostTotal(){
         return callsTotal;
     }
+    
     function getSmsCostTotal(){
         return smsTotal;
     }

@@ -16,32 +16,33 @@ const billSettingsAddButtonBtn = document.querySelector('.billSettingsAddButton'
 //get a reference to the 'Update settings' button
 const updateSettingsbtnElem = document.querySelector('.updateSettingsbtn');
 
-// create a variables that will keep track of all the settings values
-var callSettings = 0;
-var smsSettings = 0; 
-var warningSettings = 0;
-var dangerSettings = 0;
+//INSTANCE FOR MY FF-----
+var billSettings = BillWithSettings();
 
-// create a variables that will keep track of all three totals.
-var callsTotalSettings = 0; 
-var smsTotalSettings = 0;
-var totalSettings = 0;
-
-
-var overallCost = 0;
-//adding variable to the limitedTotal on criticalLevel
-var overallCostUpdated = 0;
-
-//add an event listener for when the 'Update settings' button is pressed
+//on the settigsBil--set and get inserted values and update them
     function updateSettings(){
-    callSettings = callCostSettingField.value;
-    smsSettings = smsCostSettingField.value;
-    warningSettings = warningLevelSettingField.value;
-    dangerSettings = criticalLevelSettingField.value;
+    billSettings.setCallCost(Number (callCostSettingField.value));
+    billSettings.getCallCost();
+    
+    billSettings.setSmsCost(Number (smsCostSettingField.value));
+    billSettings.getSmsCost();
+    
+    billSettings.setWarningLevel(Number (warningLevelSettingField.value));
+    billSettings.getWarningLevel();
+
+    billSettings.setCriticalLevel(Number (criticalLevelSettingField.value));
+    billSettings.getCriticalLevel();
 
     addClassName();
 
 };
+
+
+// function BillWithSettings1(){
+
+
+// }
+
 
 updateSettingsbtnElem.addEventListener('click', updateSettings);
 //});
@@ -51,100 +52,33 @@ updateSettingsbtnElem.addEventListener('click', updateSettings);
 
 function totalBillSettings(){
     var checkedRadioSettingsBtn = document.querySelector("input[name='billSettingsItemType']:checked");
-    if(overallCost < dangerSettings){
-        if(checkedRadioSettingsBtn){
+    // if(overallCost < dangerSettings){
+        var billSett = checkedRadioSettingsBtn.value;               
+            
+    //PASS THE VALUES FROM html-----
+            billSettings.billItems(billSett);
+    // }
 
-            var billSettingsItemType = checkedRadioSettingsBtn.value;
-            //ADD the appropriate value to the call / sms total
-            //AND use parseFloat to change string value to a number
-            // if(callSettings === ''){
-            //     document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
-                
-            // }
+    console.log(typeof(callsTotalSettings));
 
-            // if(callSettings === ''){
-            //     document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
-                
-            // }
+    callSettingsTotalElem.innerHTML = billSettings.getTotalCallCost().toFixed(2);
+    smsSettingsTotalElem.innerHTML = billSettings.getTotalSmsCost().toFixed(2);
+    // overallCost = callsTotalSettings + smsTotalSettings;
+    totalSettingsSpanElem.innerHTML = billSettings.getTotalCost().toFixed(2);
 
-            // if(smsSettings === ''){
-            //     document.getElementsByClassName('billSettingsAddButtonBtn').disabled = true;
-            // }
-
-            // if(u-full-width === ''){
-            //     document.getElementsByClassName('updateSettingsbtnElem').disabled = true;
-                
-            // }
-
-            if(billSettingsItemType === "call"){
-                callsTotalSettings +=  Number(callSettings);
-            }
-            else if(billSettingsItemType === "sms"){
-                smsTotalSettings += Number(smsSettings);
-            }
-
-
-
-            if(billSettingsItemType === "call" &&  callSettings === ''){
-                callsTotalSettings+=0;
-            }
-
-            if(billSettingsItemType === "sms" &&  smsSettings === ''){
-                smsTotalSettings+=0;
-            }            
-    
-        }
-    
+    addClassName();
     }
 
-    
-   
+    // color function
+function addClassName(){
 
-// * add the appropriate value to the overall total
 
-    console.log(typeof(callsTotalSettings))
+    totalSettingsSpanElem.classList.remove("danger");
+    totalSettingsSpanElem.classList.remove("warning");
 
-    callSettingsTotalElem.innerHTML = callsTotalSettings.toFixed(2);
-    smsSettingsTotalElem.innerHTML = smsTotalSettings.toFixed(2);
-    overallCost = callsTotalSettings + smsTotalSettings;
-    totalSettingsSpanElem.innerHTML = overallCost.toFixed(2);
 
-addClassName();
-
-    //stopping the counter once the criticalLevel is reached
-    // for(i = 0; i > criticalLevelSettingField; i++){
-    //     if(overallCost > criticalLevelSettingField){
-    //         document.getElementsByClassName('billSettingsAddButton').innerHTML.disabled = true;
-    //         //limitedTotal += overallCost;
-    //     }
-
-        //if(overallCost<criticalLevelSettingField){continue;}
-        //limitedTotal += overallCost;
-    }
-
-    //color function
-
-    function addClassName(){   
-        
-        // updating the criticalLevelSetting class will make the overall cost orange
-
-        if (overallCost >= dangerSettings && dangerSettings > 0){
-            totalSettingsSpanElem.classList.remove("warning");
-            totalSettingsSpanElem.classList.add("danger");
-        }
-    
-        else if (overallCost >= warningSettings && overallCost < dangerSettings){
-            // adding the warningLevelSetting class will make the overall cost orange
-            totalSettingsSpanElem.classList.remove("danger");
-            totalSettingsSpanElem.classList.add("warning");
-        }
-
-        else {
-            totalSettingsSpanElem.classList.remove("warning");
-            totalSettingsSpanElem.classList.remove("danger");
-        }
-    }
-
+    totalSettingsSpanElem.classList.add(billSettings.totalClassName());
+}
 
 
 billSettingsAddButtonBtn.addEventListener('click', totalBillSettings);
