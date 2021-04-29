@@ -19,7 +19,7 @@ function radioBillTotal2(){
     // alert("hello");
 
     //passing the values
-    radioBill.checkedBillType(billItemTypeRadio.value);
+    radioBill.checkedBillType(billItemType);
     }
 
 

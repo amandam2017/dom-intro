@@ -3,11 +3,12 @@ function radioBillTotal(){
     var smsCostTotal = 0;
 
     function checkedBillType(billItemType){
+        
             if(billItemType === "call"){
                 callCostTotal += 2.75;
             }
 
-            else if(billItemType === "sms"){
+            if(billItemType === "sms"){
                 smsCostTotal += 0.75;
             }
     }
@@ -42,13 +43,5 @@ function radioBillTotal(){
         getCallCostTotal,
         addClass
     }
-
-// if (totalCost >= 50){
-//     // adding the danger class will make the text red
-//     totalTwoElem.classList.add("danger");
-// }
-// else if (totalCost >= 30){
-//     totalTwoElem.classList.add("warning");
-// }
 
 }
